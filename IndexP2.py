@@ -55,8 +55,8 @@ if df is not None:
     # Section 3: Response Time Comparison
     # -----------------------------
     st.header("Response Time Comparison: Run1 vs Run2")
-    st.subheader("Full Report Preview")
-    st.write(df.head())
+    #st.subheader("Full Report Preview")
+    #st.write(df.head())
     
     # Required columns check
     required_cols = ['TransactionName', 'SLA', 'Run1-90Percent', 'Run2-90Percent', 'Run3-90Percent']
@@ -92,6 +92,8 @@ if df is not None:
         min_rt = float(df['Run1-90Percent'].min())
         max_rt = float(df['Run1-90Percent'].max())
         rt_range = st.slider("Select Run1 response time range", min_rt, max_rt, (min_rt, max_rt))
+        rt_range = st.slider("Select Run2 response time range", min_rt, max_rt, (min_rt, max_rt))
+        rt_range = st.slider("Select Run3 response time range", min_rt, max_rt, (min_rt, max_rt))
         
         # Filter the dataframe for plotting based on the above filters
         df_graph = df[
@@ -101,9 +103,9 @@ if df is not None:
         ]
         
         # Reshape data for plotting comparison between Run1 and Run2
-        df_plot = df_graph[['TransactionName', 'Run1-90Percent', 'Run2-90Percent']].melt(
+        df_plot = df_graph[['TransactionName', 'Run1-90Percent', 'Run2-90Percent','Run3-90Percent']].melt(
             id_vars='TransactionName',
-            value_vars=['Run1-90Percent', 'Run2-90Percent'],
+            value_vars=['Run1-90Percent', 'Run2-90Percent','Run3-90Percent'],
             var_name='Run',
             value_name='Response Time'
         )
